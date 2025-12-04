@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ЗанятОй взрослый и ИИ: Порядок в делах</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-warm: #FFF9F0;
+      --text-dark: #4A4238;
+      --text-light: #7A7065;
+
+      --peach-light: #FFEAD9;
+      --peach-accent: #FFB482;
+      --blue-light: #E3F4F9;
+      --blue-accent: #7EC8E3;
+      --green-light: #E8F7E9;
+      --green-accent: #92C799;
+
+      --card-radius: 24px;
+      --btn-radius: 999px;
+      --soft-shadow: 0 10px 30px -5px rgba(74, 66, 56, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background-color: var(--bg-warm);
+      color: var(--text-dark);
+      line-height: 1.5;
+      background-image:
+        radial-gradient(circle at 10% 20%, rgba(255, 234, 217, 0.30) 0%, transparent 22%),
+        radial-gradient(circle at 90% 80%, rgba(227, 244, 249, 0.38) 0%, transparent 24%);
+      padding-bottom: 40px;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    h1, h2, h3 {
+      font-weight: 800;
+      color: var(--text-dark);
+    }
+
+    p {
+      color: var(--text-light);
+      font-weight: 600;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible {
+      outline: 2px solid var(--peach-accent);
+      outline-offset: 3px;
+    }
+
+    /* Hero */
+
+    .hero {
+      text-align: center;
+      padding: 52px 0 36px;
+    }
+
+    .hero-kicker {
+      font-size: 0.85rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--blue-accent);
+      margin-bottom: 10px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-bottom: 14px;
+      line-height: 1.2;
+    }
+
+    .hero p {
+      font-size: 1.05rem;
+      max-width: 620px;
+      margin: 0 auto;
+    }
+
+    .hero-actions {
+      margin: 24px auto 10px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .hero-note {
+      font-size: 0.9rem;
+      max-width: 520px;
+      margin: 8px auto 0;
+    }
+
+    .hero-helper {
+      font-size: 0.85rem;
+      margin-top: 6px;
+      color: var(--text-light);
+    }
+
+    /* Buttons */
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 11px 24px;
+      border-radius: var(--btn-radius);
+      font-weight: 700;
+      transition: all 0.2s ease;
+      border: none;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-family: inherit;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background-color: var(--peach-accent);
+      color: #fff;
+      box-shadow: 0 8px 18px rgba(255, 180, 130, 0.4);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 22px rgba(255, 180, 130, 0.55);
+      background-color: #f7a373;
+    }
+
+    .btn-secondary {
+      background-color: #fff;
+      color: var(--text-dark);
+      box-shadow: 0 6px 16px rgba(74, 66, 56, 0.08);
+    }
+
+    .btn-secondary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(74, 66, 56, 0.12);
+    }
+
+    .btn-telegram {
+      background-color: #fff;
+      color: #229ED9;
+      box-shadow: 0 4px 10px rgba(34, 158, 217, 0.15);
+    }
+
+    .btn-max {
+      background-color: #fff;
+      color: #FF7700;
+      box-shadow: 0 4px 10px rgba(255, 119, 0, 0.15);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+    }
+
+    .btn-icon {
+      margin-right: 10px;
+      font-size: 1.25rem;
+    }
+
+    .btn-submit {
+      background-color: var(--peach-accent);
+      color: #fff;
+      width: 100%;
+      padding: 13px;
+      margin-top: 6px;
+      font-size: 1rem;
+    }
+
+    .btn-submit:hover {
+      background-color: #eba577;
+    }
+
+    /* Pillars (3 направления) */
+
+    .pillars {
+      margin-bottom: 48px;
+    }
+
+    .pillars-heading {
+      text-align: center;
+      margin-bottom: 26px;
+    }
+
+    .pillars-heading h2 {
+      font-size: 1.8rem;
+      margin-bottom: 6px;
+    }
+
+    .pillars-heading p {
+      font-size: 0.98rem;
+      max-width: 620px;
+      margin: 0 auto;
+    }
+
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 26px;
+    }
+
+    .pillar-card {
+      background: #fff;
+      border-radius: var(--card-radius);
+      overflow: hidden;
+      box-shadow: var(--soft-shadow);
+      transition: transform 0.25s ease;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .pillar-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .card-header {
+      padding: 14px 22px;
+      text-align: center;
+    }
+
+    .card-header h3 {
+      font-size: 1.25rem;
+      margin: 0;
+    }
+
+    .card-chaos .card-header { background-color: var(--peach-light); }
+    .card-ai    .card-header { background-color: var(--blue-light); }
+    .card-free  .card-header { background-color: var(--green-light); }
+
+    .card-body {
+      padding: 22px 24px 22px;
+      text-align: center;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .illustration-placeholder {
+      font-size: 3rem;
+      margin-bottom: 14px;
+      width: 90px;
+      height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+
+    .card-chaos .illustration-placeholder { background: var(--peach-light); }
+    .card-ai    .illustration-placeholder { background: var(--blue-light); }
+    .card-free  .illustration-placeholder { background: var(--green-light); }
+
+    .card-body p {
+      font-size: 0.98rem;
+    }
+
+    /* Bottom grid: free content + contact */
+
+    .bottom-section-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 30px;
+      margin-bottom: 32px;
+    }
+
+    @media (min-width: 768px) {
+      .bottom-section-grid {
+        grid-template-columns: 2fr 3fr;
+      }
+    }
+
+    .content-block {
+      background-color: var(--blue-light);
+      border-radius: var(--card-radius);
+      padding: 30px;
+      box-shadow: var(--soft-shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .content-block h2 {
+      font-size: 1.9rem;
+      margin-bottom: 10px;
+    }
+
+    .content-subtitle {
+      display: flex;
+      align-items: center;
+      font-weight: 700;
+      margin-bottom: 18px;
+      color: var(--blue-accent);
+      font-size: 1.1rem;
+    }
+
+    .content-subtitle span.crown {
+      font-size: 1.5rem;
+      margin-right: 8px;
+    }
+
+    .content-block p {
+      font-size: 0.98rem;
+      margin-bottom: 18px;
+    }
+
+    .content-list {
+      list-style: none;
+      margin-bottom: 18px;
+    }
+
+    .content-list li {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      margin-bottom: 4px;
+    }
+
+    .social-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* Contact блок */
+
+    .contact-block {
+      background-color: var(--peach-light);
+      border-radius: var(--card-radius);
+      padding: 30px;
+      box-shadow: var(--soft-shadow);
+    }
+
+    .contact-title {
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+    }
+
+    .contact-text {
+      font-size: 0.96rem;
+      margin-bottom: 16px;
+    }
+
+    .contact-form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .form-group {
+      margin-bottom: 0;
+    }
+
+    .form-group.full-width {
+      grid-column: 1 / -1;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 11px 16px;
+      border: 2px solid transparent;
+      border-radius: 14px;
+      background: #fff;
+      font-family: inherit;
+      color: var(--text-dark);
+      font-size: 0.95rem;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      outline: none;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: rgba(122, 112, 101, 0.7);
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: var(--peach-accent);
+      box-shadow: 0 0 0 2px rgba(255, 180, 130, 0.35);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 96px;
+    }
+
+    .consent-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 0.8rem;
+      color: var(--text-light);
+      line-height: 1.4;
+    }
+
+    .consent-label input[type="checkbox"] {
+      margin-top: 3px;
+      min-width: 16px;
+      min-height: 16px;
+    }
+
+    .consent-label a {
+      color: var(--blue-accent);
+      text-decoration: underline;
+    }
+
+    .contact-footer {
+      margin-top: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 8px;
+      color: var(--text-light);
+      font-size: 0.88rem;
+      align-items: center;
+    }
+
+    .contact-footer-icons {
+      display: flex;
+      gap: 10px;
+      font-size: 1.2rem;
+    }
+
+    /* Privacy */
+
+    .privacy-note {
+      font-size: 0.8rem;
+      color: var(--text-light);
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto 28px;
+      padding: 0 8px;
+    }
+
+    .privacy-note a {
+      color: var(--blue-accent);
+      text-decoration: underline;
+    }
+
+    /* Footer */
+
+    footer {
+      text-align: center;
+      margin-top: 8px;
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    footer span.year {
+      font-weight: 700;
+    }
+
+    /* Responsive tweaks */
+
+    @media (max-width: 640px) {
+      .hero {
+        padding-top: 40px;
+      }
+
+      .content-block,
+      .contact-block {
+        padding: 24px 20px;
+      }
+
+      .contact-form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .btn,
+      .btn-submit {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header class="hero" id="top">
+    <div class="hero-kicker">Сервис для занятых взрослых</div>
+    <h1>ЗанятОй взрослый и ИИ:<br>порядок в делах без перегрузки</h1>
+    <p>
+      Уютный сервис, который помогает занятым людям навести порядок в работе и жизни с помощью умных помощников, а не очередного марафона «успей всё».
+    </p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn btn-primary">Хочу разобрать свой хаос</a>
+      <a href="#free" class="btn btn-secondary">Посмотреть бесплатный контент</a>
+    </div>
+    <div class="hero-note">
+      Формат: без жёстких дедлайнов, в удобное время, шаг за шагом — от хаоса к понятной системе с ИИ.
+    </div>
+    <div class="hero-helper">
+      Проект доступен на нескольких платформах (Telegram и MAX/vk), чтобы оставаться на связи при любых ограничениях.
+    </div>
+  </header>
+
+  <main>
+    <!-- Три направления -->
+    <section class="pillars" id="directions">
+      <div class="pillars-heading">
+        <h2>Три направления сервиса</h2>
+        <p>«Разбор хаоса», «Настройка ИИ» и «Свободное время» — три простых опоры, вокруг которых строится работа.</p>
+      </div>
+
+      <div class="pillars-grid">
+        <article class="pillar-card card-chaos">
+          <div class="card-header">
+            <h3>Разбор хаоса</h3>
+          </div>
+          <div class="card-body">
+            <div class="illustration-placeholder">📝</div>
+            <p>
+              Структурируем ваши задачи, завалы в документах и бесконечные списки дел.
+              Превращаем «нужно всё вчера» в понятный, спокойный план.
+            </p>
+          </div>
+        </article>
+
+        <article class="pillar-card card-ai">
+          <div class="card-header">
+            <h3>Настройка ИИ</h3>
+          </div>
+          <div class="card-body">
+            <div class="illustration-placeholder">🤖</div>
+            <p>
+              Подбираем и настраиваем нейросети под ваши личные и рабочие задачи.
+              Ваш персональный цифровой ассистент берёт на себя рутину, вы сохраняете энергию.
+            </p>
+          </div>
+        </article>
+
+        <article class="pillar-card card-free">
+          <div class="card-header">
+            <h3>Свободное время</h3>
+          </div>
+          <div class="card-body">
+            <div class="illustration-placeholder">😌</div>
+            <p>
+              Освобождаем время и голову: больше пространства для семьи, хобби и отдыха
+              без постоянного чувства, что нужно «ещё немного поработать».
+            </p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Бесплатный контент + заявка -->
+    <section class="bottom-section-grid" id="free">
+      <!-- Бесплатный контент -->
+      <div class="content-block">
+        <h2>Бесплатный контент</h2>
+        <div class="content-subtitle">
+          <span class="crown">👑</span> В канале и сообществе
+        </div>
+        <p>Полезные гайды, промпты и живые примеры, как ИИ помогает занятому взрослому разгружать работу и быт.</p>
+
+        <ul class="content-list">
+          <li>короткие инструкции и шаблоны, которые можно сразу использовать;</li>
+          <li>разборы задач родителей, специалистов и «вечных студентов»;</li>
+          <li>честные наблюдения: что сработало, что нет и почему;</li>
+          <li>новости по платформам, чтобы оставаться на связи даже при блокировках.</li>
+        </ul>
+
+        <div class="social-buttons">
+          <a href="https://t.me/ai_for_busy_ru" target="_blank" rel="noopener noreferrer" class="btn btn-telegram">
+            <span class="btn-icon">✈️</span> Telegram-канал
+          </a>
+          <a href="https://vk.com/ai_for_busy_ru" target="_blank" rel="noopener noreferrer" class="btn btn-max">
+            <span class="btn-icon">Ⓜ️</span> MAX (vk)
+          </a>
+        </div>
+      </div>
+
+      <!-- Заявка -->
+      <div class="contact-block" id="contact">
+        <h2 class="contact-title">Оставить заявку или задать вопрос</h2>
+        <p class="contact-text">
+          Напишите пару строк о себе и ситуации. Мы ответим в удобный для вас канал и предложим мягкий план действий,
+          без «должен успеть всё».
+        </p>
+
+        <form action="#" method="post" class="contact-form-grid">
+          <div class="form-group">
+            <input type="text" name="name" placeholder="Имя" required>
+          </div>
+          <div class="form-group">
+            <input type="email" name="email" placeholder="Email" required>
+          </div>
+          <div class="form-group full-width">
+            <input type="text" name="contact" placeholder="Удобный способ связи (телефон, @telegram или профиль в MAX/vk)" required>
+          </div>
+          <div class="form-group full-width">
+            <textarea name="message" placeholder="Коротко опишите свою ситуацию: чем вы занимаетесь, что больше всего хочется передать ИИ..."></textarea>
+          </div>
+          <div class="form-group full-width">
+            <label class="consent-label">
+              <input type="checkbox" name="consent" required>
+              <span>
+                Я даю согласие на обработку моих персональных данных для связи по сервису «ЗанятОй взрослый и ИИ»
+                и ознакомился(лась) с <a href="#privacy">краткой политикой конфиденциальности</a>.
+              </span>
+            </label>
+          </div>
+          <div class="form-group full-width">
+            <button type="submit" class="btn btn-submit">Отправить заявку</button>
+          </div>
+        </form>
+
+        <div class="contact-footer">
+          <span>Формат ближе к индивидуальному разбору, чем к массовому курсу.</span>
+          <div class="contact-footer-icons" aria-hidden="true">
+            <span>✉️</span>
+            <span>✈️</span>
+            <span>Ⓜ️</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Privacy short note -->
+    <section id="privacy" class="privacy-note">
+      Мы обрабатываем ваши данные (имя, email, способ связи и описание ситуации) только для ответа на запрос в рамках сервиса
+      «ЗанятОй взрослый и ИИ». Данные не передаются третьим лицам, кроме сервисов связи и хостинга, необходимых для работы сайта.
+      По запросу вы можете изменить или удалить свои данные, ответив на письмо или сообщение в мессенджере.
+    </section>
+  </main>
+
+  <footer>
+    © <span class="year"></span> «ЗанятОй взрослый и ИИ». Спокойный порядок в делах с помощью ИИ.
+  </footer>
+</div>
+
+<script>
+  (function () {
+    var yearEl = document.querySelector('.year');
+    if (yearEl) {
+      yearEl.textContent = new Date().getFullYear();
+    }
+  })();
+</script>
+
+</body>
+</html>
